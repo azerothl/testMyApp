@@ -4,6 +4,7 @@
 [![Firefox sur main](https://github.com/azerothl/testMyApp/actions/workflows/web-firefox.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/web-firefox.yml?query=branch%3Amain+event%3Apush)
 [![WebKit sur main](https://github.com/azerothl/testMyApp/actions/workflows/web-webkit.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/web-webkit.yml?query=branch%3Amain+event%3Apush)
 [![Recette Windows sur main](https://github.com/azerothl/testMyApp/actions/workflows/windows-desktop.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/windows-desktop.yml?query=branch%3Amain+event%3Apush)
+[![Windows Sandbox sur main](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Fazerothl%2FtestMyApp%2Fcommits%2Fmain%2Fcheck-runs%3Fcheck_name%3DCampagnes%2520et%2520PDF%2520sur%2520Windows%2520Sandbox%2520vierge%26per_page%3D1&query=%24.check_runs%5B0%5D.conclusion&label=Windows%20Sandbox&logo=github)](https://github.com/azerothl/testMyApp/actions/workflows/windows-portable.yml?query=branch%3Amain)
 
 TestMyApp fait jouer des parcours à des personas simulés sur une application, les représente dans un laboratoire pixel art et produit un rapport relié aux étapes, mesures et captures du run. La référence produit est [SPEC.md](SPEC.md), révision 1.0.2. Les recettes couvrent Chromium, Firefox, WebKit et Windows.
 
