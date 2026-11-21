@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "testmyapp"
-version = "0.2.1"
+version = "0.2.2"
 description = "Laboratoire de test par personas pixel art : des personas simulés testent vos applications (web ou client lourd) et produisent un rapport détaillé."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -31,4 +31,4 @@ testmyapp = "testmyapp.cli:main"
 include = ["testmyapp*"]
 
 [tool.setuptools.package-data]
-testmyapp = ["assets/**/*.toml", "assets/**/*.json", "assets/web/*.js", "assets/desktop/*.ps1", "assets/vendor/axe-core/*", "gui/static/**/*"]
+testmyapp = ["assets/**/*.toml", "assets/**/*.json", "assets/web/*.js", "assets/desktop/*.exe", "assets/vendor/axe-core/*", "gui/static/**/*"]

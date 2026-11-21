@@ -169,8 +169,11 @@ def cmd_target_check(args: argparse.Namespace) -> int:
         if sys.platform != "win32":
             print("❌ UI Automation nécessite Windows", file=sys.stderr)
             return 1
-        if not shutil.which(target.executable) and not Path(target.executable).is_file():
-            print(f"❌ exécutable introuvable : {target.executable}", file=sys.stderr)
+        from testmyapp.drivers.desktop import desktop_command
+
+        executable, _ = desktop_command(target.executable, target.args)
+        if not shutil.which(executable) and not Path(executable).is_file():
+            print(f"❌ exécutable introuvable : {executable}", file=sys.stderr)
             return 1
         try:
             import psutil  # noqa: F401
@@ -185,7 +188,7 @@ def cmd_target_check(args: argparse.Namespace) -> int:
         except (OSError, ValueError) as exc:
             print(f"❌ modèle de repli inutilisable : {exc}", file=sys.stderr)
             return 1
-        print(f"✅ prérequis UI Automation accessibles : {target.executable}")
+        print(f"✅ prérequis UI Automation accessibles : {executable}")
         if target.templates:
             print(f"✅ modèles de repli validés : {len(target.templates)}")
     return 0

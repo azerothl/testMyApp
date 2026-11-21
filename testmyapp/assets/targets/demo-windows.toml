@@ -1,8 +1,7 @@
 schema_version = 1
 id = "demo-windows"
 type = "desktop"
-executable = "powershell.exe"
-args = ["-NoProfile", "-STA", "-File", "{demo.windows_script}"]
+executable = "{demo.windows_executable}"
 notes = "Application WinForms locale avec actions, gel et sortie inattendue contrôlés."
 
 [window]

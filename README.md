@@ -14,7 +14,7 @@ TestMyApp fait jouer des parcours à des personas simulés sur une application, 
 Sous Windows x64, téléchargez l’exécutable portable depuis les [releases GitHub](https://github.com/azerothl/testMyApp/releases). Ouvrez le fichier pour lancer l’accueil sans installer Python. Pour les campagnes Web et l’export PDF, installez Chromium une fois depuis PowerShell, dans le dossier de téléchargement.
 
 ```powershell
-.\TestMyApp-v0.2.1-windows-x64.exe install-browser chromium
+.\TestMyApp-v0.2.2-windows-x64.exe install-browser chromium
 ```
 
 L’exécutable retrouve automatiquement le navigateur installé lors des lancements suivants.
@@ -85,7 +85,15 @@ Les URL persistées perdent leurs paramètres et identifiants. Les traces Playwr
 
 ### Windows
 
-Dans une session Windows interactive avec PowerShell et .NET WinForms disponibles :
+Dans une session Windows interactive, lancez la recette avec l’exécutable portable.
+
+~~~powershell
+.\TestMyApp-v0.2.2-windows-x64.exe init
+.\TestMyApp-v0.2.2-windows-x64.exe target check demo-windows
+.\TestMyApp-v0.2.2-windows-x64.exe run -c recette-windows --mode headless
+~~~
+
+Si vous avez installé TestMyApp avec Python, les mêmes commandes sont disponibles via le terminal.
 
 ```bash
 pip install -e ".[desktop]"
@@ -94,6 +102,8 @@ testmyapp run -c recette-windows --mode headless
 ```
 
 La recette ouvre une application WinForms locale et joue trois scénarios indépendants. Elle vérifie une action UI Automation et la reprise après un gel, puis provoque une fermeture inattendue de la cible. Le code de sortie attendu est **1** pour cette campagne de test du pilote.
+
+Le code source de la démo et la commande de reconstruction sont disponibles dans le dépôt. [Recompiler la démo WinForms](packaging/windows/build-demo.ps1)
 
 Dans `targets/ma-cible.toml`, déclarez le modèle d’un contrôle dessiné. Le chemin est relatif au fichier TOML. La région facultative indique `[x, y, largeur, hauteur]` en pixels physiques de la zone cliente. Préparez le modèle à l’échelle d’affichage du test.
 
