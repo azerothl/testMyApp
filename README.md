@@ -147,6 +147,8 @@ python -m unittest discover -s tests -p "*test*.py" -v
 
 Le job **Windows Sandbox vierge** vérifie aussi l’absence de Python installé et le maintien de la politique PowerShell `Restricted`. Il s’exécute sur `main` quand un runner Windows 11 x64 dédié avec bureau interactif et la commande `wsb` porte le label `testmyapp-windows-sandbox` et que la variable de dépôt `WINDOWS_SANDBOX_CI` vaut `true`. Le mode Sandbox se lance aussi localement depuis PowerShell 7 avec un répertoire de résultats neuf.
 
+Quand le runner est lancé à la demande sur un poste Windows, le job attend en file que le poste soit allumé et que la session soit déverrouillée. Les deux PDF sont disponibles dans l’artefact `testmyapp-windows-sandbox-results` de l’exécution GitHub Actions.
+
 ```powershell
 ./tests/run_windows_portable_sandbox.ps1 -Executable ./dist/TestMyApp-v0.2.2-windows-x64.exe -OutputDirectory ./build/portable-sandbox
 ```
