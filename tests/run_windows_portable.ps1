@@ -97,7 +97,8 @@ try {
     # Official hosted runners have additional tools. Only Windows is available via PATH during the test.
     $env:Path = "$env:windir\System32;$env:windir"
     Remove-Item Env:\PYTHONHOME,Env:\PYTHONPATH,Env:\PYTHONEXECUTABLE -ErrorAction SilentlyContinue
-    if (Get-Command python.exe,python3.exe,py.exe -ErrorAction SilentlyContinue) { throw 'Python is on PATH.' }
+    $availablePython = @(Get-Command python.exe,python3.exe,py.exe -ErrorAction SilentlyContinue)
+    if ($availablePython.Count) { throw "Python is on PATH: $($availablePython.Source -join ', ')" }
     $checks.pythonOnPath = $false
     $checks.sha256 = (Get-FileHash -LiteralPath $exe).Hash
     if ((Invoke-Portable version '--version' $workspace) -ne 0) { throw 'The portable executable did not start.' }
