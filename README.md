@@ -1,5 +1,10 @@
 # TestMyApp
 
+[![Chromium sur main](https://github.com/azerothl/testMyApp/actions/workflows/web-browsers.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/web-browsers.yml?query=branch%3Amain+event%3Apush)
+[![Firefox sur main](https://github.com/azerothl/testMyApp/actions/workflows/web-firefox.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/web-firefox.yml?query=branch%3Amain+event%3Apush)
+[![WebKit sur main](https://github.com/azerothl/testMyApp/actions/workflows/web-webkit.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/web-webkit.yml?query=branch%3Amain+event%3Apush)
+[![Recette Windows sur main](https://github.com/azerothl/testMyApp/actions/workflows/windows-desktop.yml/badge.svg?branch=main&event=push)](https://github.com/azerothl/testMyApp/actions/workflows/windows-desktop.yml?query=branch%3Amain+event%3Apush)
+
 TestMyApp fait jouer des parcours à des personas simulés sur une application, les représente dans un laboratoire pixel art et produit un rapport relié aux étapes, mesures et captures du run. La référence produit est [SPEC.md](SPEC.md), révision 1.0.2. Les recettes couvrent Chromium, Firefox, WebKit et Windows.
 
 ![GUI Test Floor](docs-gui-replay.png)
@@ -117,7 +122,7 @@ python -m unittest discover -s tests -p "*test*.py" -v
 ```
 
 - **Socle** · Exécution simulée, assertions critiques, journal de reprise, décision par graine, preuves HTML hors ligne et schéma JSON.
-- **Navigateurs, Test Floor et PDF** · [GitHub Actions](.github/workflows/web-browsers.yml) lance un job par navigateur sur chaque push et pull request. En local, activez les recettes avec `TESTMYAPP_BROWSER=1`. `TESTMYAPP_BROWSERS=chromium,firefox,webkit` sélectionne les navigateurs du parcours d’achat et `TESTMYAPP_UI_BROWSER` sélectionne celui des tests d’interface. L’export PDF et la mesure de fréquence de rendu restent vérifiés dans Chromium.
+- **Navigateurs, Test Floor et PDF** · GitHub Actions exécute les recettes [Chromium](.github/workflows/web-browsers.yml), [Firefox](.github/workflows/web-firefox.yml) et [WebKit](.github/workflows/web-webkit.yml) à chaque push et pull request. En local, activez les recettes avec `TESTMYAPP_BROWSER=1`. `TESTMYAPP_BROWSERS=chromium,firefox,webkit` sélectionne les navigateurs du parcours d’achat et `TESTMYAPP_UI_BROWSER` sélectionne celui des tests d’interface. L’export PDF et la mesure de fréquence de rendu restent vérifiés dans Chromium.
 - **Windows** · Relancez les tests dans un bureau Windows interactif avec `TESTMYAPP_DESKTOP=1`. Les recettes couvrent le démarrage, l’action, le gel, l’arrêt et le clic par image. La recette de reprise vérifie que seule la branche concernée s’exécute et que sa fenêtre, retardée de 13 secondes, s’ouvre avec un seul lancement du processus.
 - **CI Windows** · [GitHub Actions](.github/workflows/windows-desktop.yml) exécute les recettes natives à chaque push et pull request. Le même point d’entrée est utilisable localement dans PowerShell avec `./tests/run_windows_desktop.ps1` après installation de `.[desktop]`. Le contrôle initial échoue si la session Windows ne dispose pas d’un bureau actif et déverrouillé.
 - **Périmètre restant** · L’intégration Electron, l’audit WCAG-EM complet et la localisation EN restent dans la feuille de route. Les mesures laboratoire et la simulation de profils complètent les tests utilisateurs et les contrôles d’accessibilité humains.
