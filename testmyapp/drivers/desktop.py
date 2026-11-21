@@ -22,6 +22,17 @@ CONTROL_ACTIONS = VISUAL_ACTIONS | {"focus", "select"}
 WINDOW_STARTUP_TIMEOUT = 30.0
 
 
+def desktop_command(executable: str, args: list[str]) -> tuple[str, list[str]]:
+    legacy_demo = "{demo.windows_script}"
+    if legacy_demo in args:
+        # Les projets déjà initialisés passent encore le marqueur après les options PowerShell.
+        executable = "{demo.windows_executable}"
+        args = args[args.index(legacy_demo) + 1:]
+    if executable == "{demo.windows_executable}":
+        executable = str(files("testmyapp") / "assets" / "desktop" / "RecetteWindows.exe")
+    return executable, args
+
+
 class DesktopDriver(Driver):
     def __init__(self, target_cfg: dict[str, Any], persona_cfg: dict[str, Any],
                  run_dir: Path, session_id: str) -> None:
@@ -68,11 +79,7 @@ class DesktopDriver(Driver):
                 dpi_context.argtypes = [ctypes.c_void_p]
                 dpi_context.restype = ctypes.c_void_p
                 dpi_context(ctypes.c_void_p(-4))
-        executable = self.target_cfg["executable"]
-        args = list(self.target_cfg.get("args", []))
-        if "{demo.windows_script}" in args:
-            script = files("testmyapp") / "assets" / "desktop" / "recette.ps1"
-            args = [str(script) if arg == "{demo.windows_script}" else arg for arg in args]
+        executable, args = desktop_command(self.target_cfg["executable"], self.target_cfg.get("args", []))
         started = time.monotonic()
         env = None
         if self.target_cfg.get("discovery_bridge"):
