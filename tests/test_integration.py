@@ -202,8 +202,6 @@ class WebIntegration(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             for browser, (fixed, name) in product(browsers, variants):
                 with self.subTest(browser=browser, fixed=fixed), serve(create_demo_app(fixed=fixed)) as url:
-                    if browser == "firefox" and fixed:
-                        self.fail("Échec volontaire pour vérifier les contrôles obligatoires de main.")
                     root = Path(directory) / f"{name}-{browser}"
                     engine, result = run_fixture(name, root, url=url, browser=browser)
                     report = json.loads((root / "report" / "report.json").read_text(encoding="utf-8"))
