@@ -1,0 +1,27 @@
+name: Régressions web
+description: Installe le navigateur Playwright sélectionné et exécute les régressions web.
+inputs:
+  browser:
+    description: Navigateur Playwright à tester
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v6
+      with:
+        python-version: "3.12"
+    - name: Installer TestMyApp et Playwright
+      shell: bash
+      run: python -m pip install ".[web]"
+    - name: Installer le navigateur et ses dépendances
+      shell: bash
+      env:
+        BROWSER: ${{ inputs.browser }}
+      run: python -m playwright install --with-deps "$BROWSER"
+    - name: Exécuter les régressions web
+      shell: bash
+      env:
+        TESTMYAPP_BROWSER: "1"
+        TESTMYAPP_BROWSERS: ${{ inputs.browser }}
+        TESTMYAPP_UI_BROWSER: ${{ inputs.browser }}
+      run: python -B -m unittest discover -s tests -p test_integration.py -k WebIntegration -v
