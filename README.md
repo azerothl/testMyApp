@@ -11,6 +11,14 @@ TestMyApp fait jouer des parcours à des personas simulés sur une application, 
 
 ## Installation
 
+Sous Windows x64, téléchargez l’exécutable portable depuis les [releases GitHub](https://github.com/azerothl/testMyApp/releases). Ouvrez le fichier pour lancer l’accueil sans installer Python. Pour les campagnes Web et l’export PDF, installez Chromium une fois depuis PowerShell, dans le dossier de téléchargement.
+
+```powershell
+.\TestMyApp-v0.2.1-windows-x64.exe install-browser chromium
+```
+
+L’exécutable retrouve automatiquement le navigateur installé lors des lancements suivants.
+
 ```bash
 # Python 3.11+
 pip install -e .
