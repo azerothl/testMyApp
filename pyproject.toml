@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "testmyapp"
-version = "0.2.0"
+version = "0.2.1"
 description = "Laboratoire de test par personas pixel art : des personas simulés testent vos applications (web ou client lourd) et produisent un rapport détaillé."
 readme = "README.md"
 requires-python = ">=3.11"
