@@ -1,0 +1,8 @@
+schema_version = 1
+id = "windows-crash"
+name = "Surveillance de la fin du processus"
+
+[[steps]]
+intent = "Déclencher et observer une sortie inattendue"
+actions = [{ type = "invoke", name = "Simuler un crash" }, { type = "wait_for_exit", timeout_ms = 8000 }]
+screenshot = "none"

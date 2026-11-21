@@ -1,0 +1,128 @@
+/* TestMyApp GUI — suivi de campagne et scène pixel art */
+:root {
+  color-scheme: light;
+  --bg: #f5f6fa;
+  --panel: #fff;
+  --panel2: #eeecfd;
+  --ink: #191927;
+  --dim: #55586f;
+  --accent: #4338ca;
+  --good: #176448;
+  --warn: #86510e;
+  --bad: #a12843;
+  --edge: #e0e2eb;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.5 "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  display: flex; flex-direction: column;
+}
+.dim { color: var(--dim); }
+
+header#topbar {
+  display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; justify-content: space-between;
+  padding: .8rem clamp(.75rem, 3vw, 2rem); background: var(--panel); border-bottom: 1px solid var(--edge);
+}
+#topbar h1 { display: flex; align-items: center; gap: .5rem; font-size: 1.24rem; margin: 0; }
+.floor-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: .6rem; background: var(--accent); color: white; font-size: 1.15rem; font-weight: 800; }
+#controls { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem; }
+.chip {
+  display: inline-block; padding: .12rem .6rem;
+  background: var(--panel2); border: 1px solid var(--edge); border-radius: 999px;
+  font-size: .82rem;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 2.3rem;
+  background: var(--accent); color: white; border: 1px solid transparent; border-radius: .45rem;
+  padding: .3rem .75rem; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none;
+}
+#workspace-link, #btn-pause, #btn-stop { color: var(--ink); background: transparent; border-color: #9b9eb2; }
+#btn-stop { color: var(--bad); }
+.btn:hover { filter: brightness(1.1); }
+.btn:disabled { cursor: default; opacity: .65; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+#layout { display: flex; gap: .9rem; padding: .9rem; flex: 1; min-height: 0; }
+#floor-zone { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+canvas#floor {
+  width: 100%; height: auto; background: #0e1017;
+  image-rendering: pixelated; image-rendering: crisp-edges;
+  border: 1px solid #d5d1ed; border-radius: .75rem;
+  cursor: pointer; outline-offset: 2px;
+}
+canvas#floor:focus-visible { outline: 3px solid var(--accent); }
+
+aside#side { width: clamp(16rem, 23vw, 22rem); display: flex; flex-direction: column; gap: .65rem; min-height: 0; }
+aside#side section, #timeline-zone {
+  background: var(--panel); border: 1px solid var(--edge); border-radius: .65rem;
+  padding: .8rem .9rem; overflow: auto;
+}
+aside#side h2, #timeline-zone h2 {
+  font-size: .95rem; color: var(--ink); margin: .1rem 0 .55rem;
+}
+#floor-caption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem; padding-block: .45rem; font-size: .84rem; }
+#stations { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; padding-block: .6rem; }
+#station-select {
+  background: var(--panel2); color: var(--ink); border: 1px solid var(--dim);
+  border-radius: .45rem; min-width: min(12rem, 100%); max-width: 100%; font: inherit; padding: .35rem .5rem;
+}
+#session-panel {
+  background: var(--panel); border: 1px solid var(--edge); border-radius: .65rem; padding: .8rem 1rem; margin-block: .3rem;
+}
+#session-panel h2 { margin: 0; font-size: 1.05rem; }
+#session-steps .selected-step { outline: 2px solid var(--accent); outline-offset: 4px; }
+#session-steps li + li { margin-top: .75rem; padding-top: .55rem; border-top: 1px solid var(--edge); }
+#session-steps figure { margin: .5rem 0; display: inline-block; margin-right: .8rem; }
+#session-steps img { display: block; max-width: min(20rem, 100%); max-height: 12rem; }
+#session-panel a, .event-link { color: var(--accent); }
+.event-link { background: transparent; border: 0; padding: 0; text-decoration: underline; font: inherit; cursor: pointer; }
+#personas-panel { max-height: 17rem; }
+#waiting-list { margin: 0; padding-inline-start: 1rem; font-size: .85rem; }
+
+ul#persona-list { list-style: none; margin: 0; padding: 0; }
+ul#persona-list button {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .3rem .4rem; border-radius: 4px; cursor: pointer;
+  color: var(--ink); background: transparent; border: 0; font: inherit; text-align: left; width: 100%;
+}
+ul#persona-list button:hover, ul#persona-list button[aria-pressed="true"] { background: var(--panel2); }
+.p-avatar {
+  width: 22px; height: 28px; image-rendering: pixelated; flex: none;
+}
+.p-copy { display: grid; min-width: 0; line-height: 1.3; overflow-wrap: anywhere; }
+.p-name { font-weight: 600; }
+.p-sub { font-size: .78rem; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.p-mood { margin-left: auto; font-size: 1rem; }
+.p-state { font-size: .75rem; }
+
+#detail .row { margin: .25rem 0; }
+#detail .label { color: var(--dim); font-size: .78rem; }
+
+#metrics .mrow { display: flex; justify-content: space-between; margin: .2rem 0; font-size: .86rem; }
+#metrics .mval { font-weight: 720; color: #332894; }
+#metrics canvas.spark { width: 100%; height: 30px; }
+
+#timeline-zone { max-height: 250px; min-height: 7rem; margin: 0 .9rem .9rem; }
+ul#timeline { list-style: none; margin: 0; padding: 0; font-size: .84rem; }
+ul#timeline li { padding: .28rem 0; border-bottom: 1px solid var(--edge); display: flex; flex-wrap: wrap; gap: .25rem .5rem; overflow-wrap: anywhere; }
+.t-time { color: var(--dim); flex: none; font-variant-numeric: tabular-nums; }
+.t-who { font-weight: 700; flex: none; }
+.t-ok { color: var(--good); } .t-ko { color: var(--bad); } .t-warn { color: var(--warn); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+  #layout { flex-direction: column; }
+  aside#side { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+}
+
+/* Animations réduites : pas d'effets, transitions statiques (spec §11.5) */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

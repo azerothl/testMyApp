@@ -1,0 +1,9 @@
+schema_version = 1
+id = "windows-action"
+name = "Interaction UI Automation"
+
+[[steps]]
+intent = "Ajouter un item et vérifier le compteur"
+actions = [{ type = "invoke", name = "Ajouter un item" }]
+expects = [{ kind = "visible", selector = "Items : 1", timeout_ms = 2500 }]
+screenshot = "both"

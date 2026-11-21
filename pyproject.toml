@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "testmyapp"
+version = "0.2.0"
+description = "Laboratoire de test par personas pixel art : des personas simulés testent vos applications (web ou client lourd) et produisent un rapport détaillé."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "TestMyApp contributors" }]
+dependencies = [
+    "textual>=0.58",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "jinja2>=3.1",
+    "jsonschema>=4.23",
+    "tzdata; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+web = ["playwright>=1.44"]
+desktop = ["pywinauto>=0.6.8", "opencv-python", "Pillow", "psutil"]
+all = ["playwright>=1.44", "pywinauto>=0.6.8", "opencv-python", "Pillow", "psutil"]
+
+[project.scripts]
+testmyapp = "testmyapp.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["testmyapp*"]
+
+[tool.setuptools.package-data]
+testmyapp = ["assets/**/*.toml", "assets/**/*.json", "assets/web/*.js", "assets/desktop/*.ps1", "assets/vendor/axe-core/*", "gui/static/**/*"]

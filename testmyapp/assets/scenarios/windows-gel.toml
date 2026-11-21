@@ -1,0 +1,9 @@
+schema_version = 1
+id = "windows-gel"
+name = "Surveillance de la réactivité Windows"
+
+[[steps]]
+intent = "Déclencher un gel et vérifier la reprise de la fenêtre"
+actions = [{ type = "invoke", name = "Simuler un gel" }, { type = "wait", duration_ms = 3200 }]
+expects = [{ kind = "visible", selector = "Fenetre reactive", timeout_ms = 2500 }]
+screenshot = "after"

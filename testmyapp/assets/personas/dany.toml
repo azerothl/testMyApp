@@ -1,0 +1,43 @@
+schema_version = 1
+id = "dany"
+name = "Dany"
+pronouns = "il"
+age = 29
+occupation = "Graphiste"
+bio = "Deutéranope : distingue mal le rouge et le vert. Les états portés par la couleur seule lui échappent."
+
+[sprite]
+base = "body_a"
+palette = { skin = "#c98a5a", hair = "#203020", top = "#d9c04a", bottom = "#2a2a3a" }
+accessories = []
+
+[a11y]
+vision = "deuteranopia"
+motor = "normal"
+reading_wpm = 240
+screen_reader = false
+
+[device]
+type = "desktop"
+input = "mouse"
+browser = "chromium"
+network = { profile = "4g" }
+cpu = { throttle = 1.0 }
+screen = { w = 1920, h = 1080, dpr = 1.25 }
+
+[behavior]
+patience = 0.5
+curiosity = 0.6
+tech_savviness = 0.7
+error_proneness = 0.08
+persistence = 0.6
+help_seeking = 0.4
+speed = { factor = 1.0 }
+on_error = { retry = 0.5, explore = 0.3, ask_help = 0.15, abandon = 0.05 }
+
+[emotion]
+bias = 0.0
+volatility = 1.0
+
+[goals]
+primary = [{ text = "Se fier uniquement aux textes et formes, jamais aux couleurs" }]

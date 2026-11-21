@@ -1,0 +1,43 @@
+schema_version = 1
+id = "mona"
+name = "Mona"
+pronouns = "elle"
+age = 23
+occupation = "Serveuse, tout son numérique passe par le téléphone"
+bio = "Sur 4G, écran de téléphone. Les cibles trop petites et les sites non responsives la font renoncer."
+
+[sprite]
+base = "body_a"
+palette = { skin = "#e8a878", hair = "#6a2a1a", top = "#e0607a", bottom = "#303040" }
+accessories = ["phone"]
+
+[a11y]
+vision = "normal"
+motor = "normal"
+reading_wpm = 230
+screen_reader = false
+
+[device]
+type = "phone"
+input = "touch"
+browser = "chromium"
+network = { profile = "4g" }
+cpu = { throttle = 2.0 }
+screen = { w = 390, h = 844, dpr = 3.0 }
+
+[behavior]
+patience = 0.4
+curiosity = 0.5
+tech_savviness = 0.6
+error_proneness = 0.15
+persistence = 0.4
+help_seeking = 0.3
+speed = { factor = 1.1 }
+on_error = { retry = 0.45, explore = 0.25, ask_help = 0.1, abandon = 0.2 }
+
+[emotion]
+bias = 0.1
+volatility = 1.2
+
+[goals]
+primary = [{ text = "Tout faire sur un petit écran tactile, en mouvement" }]

@@ -1,0 +1,45 @@
+schema_version = 1
+id = "marc"
+name = "Marc"
+pronouns = "il"
+age = 52
+occupation = "Artisan (menuiserie)"
+bio = "Méfiant en ligne : cherche les pièges, les frais cachés, les cases pré-cochées. Préfère comprendre avant de cliquer."
+
+[sprite]
+base = "body_b"
+palette = { skin = "#d9a678", hair = "#4a4a4a", top = "#7a4a2a", bottom = "#3a3a3a" }
+accessories = ["cap"]
+
+[a11y]
+vision = "normal"
+motor = "normal"
+reading_wpm = 180
+screen_reader = false
+
+[device]
+type = "desktop"
+input = "mouse"
+browser = "firefox"
+network = { profile = "dsl" }
+cpu = { throttle = 1.5 }
+screen = { w = 1366, h = 768, dpr = 1.0 }
+
+[behavior]
+patience = 0.6
+curiosity = 0.2
+tech_savviness = 0.4
+error_proneness = 0.12
+persistence = 0.7
+help_seeking = 1.0
+speed = { factor = 1.4 }
+on_error = { retry = 0.3, explore = 0.1, ask_help = 0.55, abandon = 0.05 }
+
+[emotion]
+bias = -0.2
+volatility = 0.8
+
+[goals]
+primary = [{ text = "Comprendre ce qui est demandé avant chaque action" }]
+knowledge = ["panier", "prix TTC"]
+misconceptions = ["Les frais sont toujours cachés à la dernière étape"]

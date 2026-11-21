@@ -1,0 +1,20 @@
+schema_version = 1
+id = "demo"
+target = "demo-sim"
+matrix.personas = ["nadine", "eric", "mona", "paula"]
+matrix.scenarios = ["commander-produit"]
+max_workers = 4
+speed = "fast"
+seed = 20261119
+score_pass = 70.0
+
+[thresholds]
+lcp_ms = 2500
+cls = 0.1
+
+[weights]  # score global (spec §8.3)
+fonctionnel = 0.30
+perf = 0.20
+a11y = 0.15
+ux = 0.20
+stabilite = 0.15

@@ -1,0 +1,43 @@
+schema_version = 1
+id = "eric"
+name = "Éric"
+pronouns = "il"
+age = 34
+occupation = "Développeur logiciel"
+bio = "Vingt raccourcis clavier par minute. Déteste les interfaces qui lui font perdre du temps."
+
+[sprite]
+base = "body_b"
+palette = { skin = "#e8b48a", hair = "#3a2a1a", top = "#2f6d5a", bottom = "#22222e" }
+accessories = ["headset"]
+
+[a11y]
+vision = "normal"
+motor = "normal"
+reading_wpm = 320
+screen_reader = false
+
+[device]
+type = "desktop"
+input = "keyboard"
+browser = "chromium"
+network = { profile = "fiber" }
+cpu = { throttle = 1.0 }
+screen = { w = 2560, h = 1440, dpr = 1.0 }
+
+[behavior]
+patience = 0.3
+curiosity = 0.7
+tech_savviness = 1.0
+error_proneness = 0.02
+persistence = 0.6
+help_seeking = 0.1
+speed = { factor = 0.7 }
+on_error = { retry = 0.6, explore = 0.35, ask_help = 0.0, abandon = 0.05 }
+
+[emotion]
+bias = 0.0
+volatility = 1.2
+
+[goals]
+primary = [{ text = "Accomplir la tâche le plus directement possible, au clavier" }]

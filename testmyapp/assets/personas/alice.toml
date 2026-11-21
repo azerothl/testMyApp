@@ -1,0 +1,43 @@
+schema_version = 1
+id = "alice"
+name = "Alice"
+pronouns = "elle"
+age = 47
+occupation = "Administratrice métier (gestion de stocks)"
+bio = "Utilise l'application huit heures par jour avec de gros volumes de données. Toute latence se paie cent fois."
+
+[sprite]
+base = "body_b"
+palette = { skin = "#f0c8a0", hair = "#8a5a2a", top = "#3a6a9a", bottom = "#2a2a32" }
+accessories = ["glasses"]
+
+[a11y]
+vision = "normal"
+motor = "normal"
+reading_wpm = 280
+screen_reader = false
+
+[device]
+type = "desktop"
+input = "mouse"
+browser = "chromium"
+network = { profile = "fiber" }
+cpu = { throttle = 1.0 }
+screen = { w = 1920, h = 1080, dpr = 1.0 }
+
+[behavior]
+patience = 0.5
+curiosity = 0.3
+tech_savviness = 0.9
+error_proneness = 0.04
+persistence = 0.9
+help_seeking = 0.1
+speed = { factor = 0.9 }
+on_error = { retry = 0.6, explore = 0.3, ask_help = 0.05, abandon = 0.05 }
+
+[emotion]
+bias = 0.0
+volatility = 0.7
+
+[goals]
+primary = [{ text = "Travailler efficacement sur des tables denses et de gros volumes" }]

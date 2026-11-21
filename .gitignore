@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+/.venv/
+/build/
+/dist/
+
+/.env
+/.env.*
+/.akasha-test/
+/.audit-*/
+/.self-test/
+/.tempo-test/
+/.windows-*-test/
+/.testmyapp/
+/runs/
+/AUDIT-TESTMYAPP.md

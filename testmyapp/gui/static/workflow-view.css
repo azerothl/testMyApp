@@ -1,0 +1,9 @@
+.workflow-graph { display: grid; gap: .6rem; padding-block: .65rem; }
+.workflow-level { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: .6rem; margin: 0; padding: 0; list-style: none; }
+.workflow-level + .workflow-level { border-top: 1px dashed #9285c1; padding-top: .65rem; }
+.workflow-node { display: grid; gap: .28rem; align-content: start; padding: .6rem .75rem; border: 1px solid #cbc4e6; border-radius: .5rem; }
+.workflow-node p, .workflow-edges { margin: 0; }
+.workflow-task { justify-self: start; font: inherit; font-weight: 700; }
+button.workflow-task { border: 0; color: inherit; padding: 0; background: none; text-decoration: underline; cursor: pointer; }
+.workflow-status, .workflow-edges { font-size: .82rem; }
+.workflow-edges { padding-inline-start: 0; list-style: none; }

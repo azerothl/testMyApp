@@ -1,0 +1,8 @@
+schema_version = 1
+id = "recette-windows"
+target = "demo-windows"
+matrix.personas = ["eric"]
+matrix.scenarios = ["windows-action", "windows-gel", "windows-crash"]
+max_workers = 1
+speed = "turbo"
+seed = 20261119

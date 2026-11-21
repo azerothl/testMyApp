@@ -1,0 +1,43 @@
+schema_version = 1
+id = "karim"
+name = "Karim"
+pronouns = "il"
+age = 26
+occupation = "Étudiant en droit, déficient visuel"
+bio = "Navigue au clavier avec lecteur d'écran partiel. Le focus invisible ou l'ordre de tabulation cassé le bloque net."
+
+[sprite]
+base = "body_c"
+palette = { skin = "#a06a3a", hair = "#141414", top = "#5a3a8a", bottom = "#26262e" }
+accessories = ["cane"]
+
+[a11y]
+vision = "low"
+motor = "keyboard_only"
+reading_wpm = 300
+screen_reader = true
+
+[device]
+type = "desktop"
+input = "keyboard"
+browser = "chromium"
+network = { profile = "fiber" }
+cpu = { throttle = 1.0 }
+screen = { w = 1920, h = 1080, dpr = 1.0 }
+
+[behavior]
+patience = 0.7
+curiosity = 0.4
+tech_savviness = 0.6
+error_proneness = 0.05
+persistence = 0.8
+help_seeking = 0.6
+speed = { factor = 1.2 }
+on_error = { retry = 0.4, explore = 0.1, ask_help = 0.4, abandon = 0.1 }
+
+[emotion]
+bias = 0.0
+volatility = 1.0
+
+[goals]
+primary = [{ text = "Tout faire au clavier, avec un focus visible et logique" }]

@@ -1,0 +1,61 @@
+schema_version = 1
+id = "commander-produit"
+name = "Commander un produit"
+description = "Rechercher un produit, l'ajouter au panier, payer. Parcours critique e-commerce (baseline : 30 s expert)."
+
+[[steps]]
+intent = "Trouver le produit via la recherche"
+mode = "scripted"
+baseline_seconds = 10
+screenshot = "after"
+actions = [
+  { type = "navigate", url = "/" },
+  { type = "type", selector_pref = "role:searchbox[name='Rechercher un produit']", text = "lampe" },
+  { type = "press", key = "Enter" },
+]
+expects = [
+  { kind = "url_matches", pattern = "results" },
+  { kind = "visible", selector = "Ajouter au panier" },
+]
+
+[steps.action_paths]
+"input:mouse" = [
+  { type = "navigate", url = "/" },
+  { type = "type", selector_pref = "role:searchbox[name='Rechercher un produit']", text = "lampe" },
+  { type = "click", name = "Rechercher" },
+]
+"input:touch" = [
+  { type = "navigate", url = "/" },
+  { type = "type", selector_pref = "role:searchbox[name='Rechercher un produit']", text = "lampe" },
+  { type = "tap", name = "Rechercher" },
+]
+
+[[steps]]
+intent = "Ajouter au panier puis passer la commande"
+mode = "scripted"
+baseline_seconds = 12
+screenshot = "after"
+actions = [
+  { type = "click", name = "Ajouter au panier" },
+  { type = "click", name = "Panier (1)" },
+  { type = "click", name = "Passer la commande" },
+]
+expects = [
+  { kind = "url_matches", pattern = "checkout" },
+  { kind = "metric_below", metric = "lcp_ms", max = 2500 },
+]
+
+[[steps]]
+intent = "Payer la commande"
+mode = "scripted"
+baseline_seconds = 15
+screenshot = "after"
+actions = [
+  { type = "type", selector_pref = "role:textbox[name='Numéro de carte']", text = "4242 4242 4242 4242" },
+  { type = "type", selector_pref = "role:textbox[name=\"Date d'expiration\"]", text = "12/28" },
+  { type = "type", selector_pref = "role:textbox[name='CVC']", text = "123" },
+  { type = "click", name = "Payer maintenant" },
+]
+expects = [
+  { kind = "url_matches", pattern = "confirmation" },
+]

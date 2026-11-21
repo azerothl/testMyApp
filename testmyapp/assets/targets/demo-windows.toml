@@ -1,0 +1,9 @@
+schema_version = 1
+id = "demo-windows"
+type = "desktop"
+executable = "powershell.exe"
+args = ["-NoProfile", "-STA", "-File", "{demo.windows_script}"]
+notes = "Application WinForms locale avec actions, gel et sortie inattendue contrôlés."
+
+[window]
+title = "^TestMyApp - Recette Windows$"

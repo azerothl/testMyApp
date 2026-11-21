@@ -1,0 +1,6 @@
+schema_version = 1
+id = "demo-web"
+type = "web"
+base_url = "http://127.0.0.1:7418"
+browser = "chromium"
+notes = "Webapp d'exemple embarquée (testmyapp demo). Contient volontairement des défauts UX/a11y : page paiement lente, image sans alt, case sans label, cible tactile réduite, faible contraste sur le bouton appliquer."

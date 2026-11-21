@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TestMyApp — Test Floor</title>
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/workflow-view.css">
+</head>
+<body>
+  <header id="topbar">
+    <h1><span class="floor-mark" aria-hidden="true">T</span> Suivi de campagne</h1>
+    <div id="controls" role="group" aria-label="Contrôles de campagne">
+      <a id="workspace-link" hidden class="btn" href="../../">Projets et rapports</a>
+      <span id="status-chip" class="chip">en attente</span>
+      <span id="seed-chip" class="chip dim">seed —</span>
+      <span id="speed-chip" class="chip dim">vitesse —</span>
+      <button id="btn-start" class="btn" hidden>Lancer</button>
+      <button id="btn-pause" class="btn" hidden>Pause</button>
+      <button id="btn-stop" class="btn" hidden>Arrêter</button>
+      <a id="btn-report" class="btn" href="report/report.html" target="_blank" rel="noopener" hidden>Voir le rapport</a>
+    </div>
+  </header>
+
+  <div id="layout">
+    <section id="floor-zone" aria-label="Test Floor — personas en action">
+      <canvas id="floor" width="832" height="480" role="img"
+        aria-label="Vue du laboratoire : personas pixel art en train de tester l'application aux stations"></canvas>
+      <div id="floor-caption" class="dim"><span>Les écrans montrent les actions enregistrées. Sélectionnez une station pour ouvrir sa session.</span><span><span id="fps">—</span> images/s</span></div>
+      <div id="stations">
+        <label for="station-select">Station</label>
+        <select id="station-select"><option value="">Sessions aux stations</option></select>
+        <button id="station-open" class="btn" disabled>Ouvrir la session</button>
+      </div>
+      <section id="session-panel" aria-labelledby="session-title" hidden>
+        <h2 id="session-title" tabindex="-1">Détail de session</h2>
+        <p id="session-status"></p>
+        <ol id="session-steps"></ol>
+      </section>
+    </section>
+
+    <aside id="side">
+      <section id="metrics-panel" aria-label="Métriques en direct">
+        <h2>Résultats en direct</h2>
+        <div id="metrics"><p class="dim">—</p></div>
+      </section>
+      <section id="personas-panel" aria-label="Personas">
+        <h2>Personas <span id="pcount" class="dim"></span></h2>
+        <ul id="persona-list"></ul>
+      </section>
+      <section id="waiting-panel" aria-labelledby="waiting-title" hidden>
+        <h2 id="waiting-title">En attente</h2>
+        <ul id="waiting-list"></ul>
+      </section>
+      <section id="detail-panel" aria-label="Persona sélectionné">
+        <h2>Profil sélectionné</h2>
+        <div id="detail"><p class="dim">Sélectionnez un persona…</p></div>
+      </section>
+    </aside>
+  </div>
+
+  <section id="floor-workflow" aria-labelledby="floor-workflow-title" hidden>
+    <h2 id="floor-workflow-title">Dépendances du workflow</h2>
+    <div id="floor-graph" class="workflow-graph"></div>
+  </section>
+  <section id="timeline-zone" aria-label="Journal des événements">
+    <h2>Événements</h2>
+    <ul id="timeline" aria-live="polite"></ul>
+  </section>
+
+  <div id="sr-only" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+  <script src="static/workflow-view.js"></script>
+  <script src="static/app.js"></script>
+</body>
+</html>

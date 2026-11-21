@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projets et rapports | TestMyApp</title>
+  <link rel="stylesheet" href="/static/home.css">
+  <link rel="stylesheet" href="/static/workflow-view.css">
+  <script src="/static/home-editor.js" defer></script>
+  <script src="/static/workflow-view.js" defer></script>
+  <script src="/static/home.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap top-inner">
+      <a class="brand" href="/" aria-label="Accueil TestMyApp"><span class="mark" aria-hidden="true">T</span>TestMyApp</a>
+      <nav class="top-nav" aria-label="Projet sélectionné">
+        <a class="nav-link" href="#launch-title" id="preparation-link" hidden>Préparation</a>
+        <a class="nav-link" href="#history-title" id="history-link" hidden>Historique</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="workspace">
+      <aside class="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Mes projets</h2>
+        <p id="projects-empty" class="muted" hidden>Aucun projet enregistré.</p>
+        <ul id="projects"></ul>
+        <details id="add-project">
+          <summary>Ajouter un projet</summary>
+          <form id="project-form">
+            <label for="project-path">Chemin du dossier TestMyApp</label>
+            <input id="project-path" name="path" aria-describedby="path-hint" required placeholder="D:\dev\mon-projet">
+            <p class="hint" id="path-hint">Collez le chemin du dossier qui contient vos campagnes ou vos anciens résultats.</p>
+            <label for="project-name">Nom affiché <span class="muted">(facultatif)</span></label>
+            <input id="project-name" name="name" maxlength="120">
+            <button class="primary" type="submit">Enregistrer le projet</button>
+            <p id="form-error" class="error" role="alert" hidden></p>
+          </form>
+        </details>
+      </aside>
+
+      <section class="project" aria-labelledby="project-title" id="project-panel">
+        <div class="project-heading">
+          <div class="hero-copy">
+            <h1>Projets et rapports</h1>
+            <h2 id="project-title">Choisir un projet</h2>
+            <p class="muted path" id="project-location"></p>
+          </div>
+          <div class="latest-run" id="latest-run" hidden>
+            <span>Dernière campagne</span>
+            <strong id="latest-status"></strong>
+            <time id="latest-date"></time>
+          </div>
+        </div>
+        <p id="message" class="error" role="alert" hidden></p>
+        <div id="project-detail" hidden>
+          <section class="new-run" aria-labelledby="launch-title" id="preparation">
+            <h3 id="launch-title">Lancer un test</h3>
+            <p class="muted" id="campaign-empty" hidden>Aucune campagne prête à être lancée dans ce dossier.</p>
+            <form id="campaign-form">
+              <div class="field">
+                <label for="campaign">Campagne</label>
+                <select id="campaign" required></select>
+              </div>
+              <fieldset id="persona-picker" aria-describedby="persona-count">
+                <legend>Personas à faire participer</legend>
+                <div id="persona-options"></div>
+                <p id="persona-count" class="hint" role="status"></p>
+              </fieldset>
+              <fieldset id="discovery" hidden>
+                <legend>Tâches de découverte</legend>
+                <p class="hint">Assignez une tâche à chaque persona. Quand un message est modifiable, il peut apparaître dans le rapport et ses captures.</p>
+                <div id="task-options"></div>
+              </fieldset>
+              <label class="field">Version de l’application <input id="app-version" maxlength="100" placeholder="Facultatif"></label>
+              <div class="launch-bar"><button class="primary" type="submit">Lancer la campagne</button></div>
+            </form>
+            <details id="campaign-notes" hidden>
+              <summary>Voir les erreurs de configuration</summary>
+              <ul id="campaign-warnings"></ul>
+            </details>
+          </section>
+          <section class="new-run" id="model-editor" aria-labelledby="editor-heading" hidden>
+            <div class="section-heading">
+              <h3 id="editor-heading">Modèles de campagne</h3>
+              <button type="button" id="model-new" class="secondary">Nouveau modèle</button>
+            </div>
+            <label id="model-picker" hidden>Modèle enregistré <select id="model-list"></select></label>
+            <form id="model-form" hidden>
+              <div class="editor-grid">
+                <label>Nom de la campagne <input id="model-name" maxlength="120" required></label>
+                <label>Cible à tester <select id="model-target" required></select></label>
+              </div>
+              <div id="model-title-field" hidden>
+                <label>Titre par défaut des données de test <input id="model-title" maxlength="240"></label>
+                <p class="hint">Un suffixe change à chaque lancement. Écrivez <code>{titre}</code> dans l’objectif ou le texte attendu pour réutiliser le titre complet.</p>
+              </div>
+              <div id="model-tasks"></div>
+              <p class="hint">Un persona peut revenir sur plusieurs tâches. « Commence après » indique la tâche dont il reprend les données. « Autres prérequis » permet d’attendre d’autres tâches en plus.</p>
+              <p class="hint">« Réussite requise » bloque la suite si le prérequis échoue. Les autres conditions déclenchent la branche qui correspond au résultat.</p>
+              <details open><summary>Vue des dépendances</summary><div id="editor-graph" class="workflow-graph"></div></details>
+              <button type="button" id="model-add" class="secondary">Ajouter une tâche</button>
+              <label class="field">Version de l’application <input id="model-app-version" maxlength="100" placeholder="Facultatif"></label>
+              <div class="model-actions">
+                <button type="submit" class="primary" id="model-save">Enregistrer le modèle</button>
+                <button type="button" class="secondary" id="model-start">Lancer le modèle</button>
+              </div>
+              <div class="editor-grid" id="model-copy" hidden>
+                <label>Projet de destination <select id="model-destination"></select></label>
+                <button type="button" class="secondary" id="model-duplicate">Dupliquer le modèle</button>
+              </div>
+            </form>
+            <p class="hint" id="model-status" role="status"></p>
+            <p class="error" id="model-error" role="alert" hidden></p>
+          </section>
+          <section class="history" aria-labelledby="history-title">
+            <div class="section-heading">
+              <h3 id="history-title">Historique des tests <span id="run-count"></span></h3>
+              <button id="refresh" type="button" class="secondary">Actualiser</button>
+            </div>
+            <p class="empty" id="runs-empty" hidden>Les résultats apparaîtront ici après votre première campagne.</p>
+            <details id="compare-runs" class="task-card" hidden>
+              <summary>Comparer deux exécutions</summary>
+              <div id="reference-controls" hidden>
+                <p id="reference-label"></p>
+                <form id="reference-rerun" class="editor-grid">
+                  <label>Nouvelle version à tester <input id="reference-version" maxlength="100" required></label>
+                  <button class="secondary" type="submit">Relancer avec les réglages de la référence</button>
+                </form>
+              </div>
+              <form id="compare-form">
+                <label>Référence <select id="compare-before" required></select></label>
+                <label>Exécution à comparer <select id="compare-after" required></select></label>
+                <button class="secondary" type="submit">Comparer</button>
+              </form>
+              <div id="comparison" aria-live="polite"></div>
+            </details>
+            <ul id="runs"></ul>
+          </section>
+        </div>
+      </section>
+    </div>
+    <div id="announcement" role="status" class="visually-hidden"></div>
+  </main>
+</body>
+</html>

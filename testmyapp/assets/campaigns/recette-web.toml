@@ -1,0 +1,9 @@
+schema_version = 1
+id = "recette-web"
+target = "demo-web"
+matrix.personas = ["eric", "karim"]
+matrix.scenarios = ["commander-produit"]
+max_workers = 2
+speed = "fast"
+seed = 20261119
+trace = true

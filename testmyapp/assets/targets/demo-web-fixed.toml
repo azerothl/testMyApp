@@ -1,0 +1,6 @@
+schema_version = 1
+id = "demo-web-fixed"
+type = "web"
+base_url = "http://127.0.0.1:7419"
+browser = "chromium"
+notes = "Variante corrigée de la boutique de référence : testmyapp demo --fixed --port 7419."

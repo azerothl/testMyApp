@@ -1,0 +1,43 @@
+schema_version = 1
+id = "nadine"
+name = "Nadine"
+pronouns = "elle"
+age = 68
+occupation = "Retraitée, bénévole en bibliothèque"
+bio = "Découvre les services en ligne depuis la médiathèque. Lit attentivement, écrit lentement."
+
+[sprite]
+base = "body_a"
+palette = { skin = "#f2c9a0", hair = "#d9d9d9", top = "#b0526d", bottom = "#4a4a5a" }
+accessories = ["glasses"]
+
+[a11y]
+vision = "low"
+motor = "normal"
+reading_wpm = 140
+screen_reader = false
+
+[device]
+type = "desktop"
+input = "mouse"
+browser = "chromium"
+network = { profile = "dsl" }
+cpu = { throttle = 2.0 }
+screen = { w = 1920, h = 1080, dpr = 1.0 }
+
+[behavior]
+patience = 0.8
+curiosity = 0.6
+tech_savviness = 0.1
+error_proneness = 0.30
+persistence = 0.9
+help_seeking = 0.8
+speed = { factor = 2.0 }
+on_error = { retry = 0.5, explore = 0.2, ask_help = 0.3, abandon = 0.0 }
+
+[emotion]
+bias = 0.1
+volatility = 0.9
+
+[goals]
+primary = [{ text = "Utiliser le service comme le ferait une personne qui découvre l'informatique" }]
