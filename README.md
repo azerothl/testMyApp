@@ -143,6 +143,13 @@ python -m unittest discover -s tests -p "*test*.py" -v
 - **Navigateurs, Test Floor et PDF** · GitHub Actions exécute les recettes [Chromium](.github/workflows/web-browsers.yml), [Firefox](.github/workflows/web-firefox.yml) et [WebKit](.github/workflows/web-webkit.yml) à chaque push et pull request. En local, activez les recettes avec `TESTMYAPP_BROWSER=1`. `TESTMYAPP_BROWSERS=chromium,firefox,webkit` sélectionne les navigateurs du parcours d’achat et `TESTMYAPP_UI_BROWSER` sélectionne celui des tests d’interface. L’export PDF et la mesure de fréquence de rendu restent vérifiés dans Chromium.
 - **Windows** · Relancez les tests dans un bureau Windows interactif avec `TESTMYAPP_DESKTOP=1`. Les recettes couvrent le démarrage, l’action, le gel, l’arrêt et le clic par image. La recette de reprise vérifie que seule la branche concernée s’exécute et que sa fenêtre, retardée de 13 secondes, s’ouvre avec un seul lancement du processus.
 - **CI Windows** · [GitHub Actions](.github/workflows/windows-desktop.yml) exécute les recettes natives à chaque push et pull request. Le même point d’entrée est utilisable localement dans PowerShell avec `./tests/run_windows_desktop.ps1` après installation de `.[desktop]`. Le contrôle initial échoue si la session Windows ne dispose pas d’un bureau actif et déverrouillé.
+- **Exécutable portable** · [GitHub Actions](.github/workflows/windows-portable.yml) construit le binaire et teste les démos Chromium et WinForms puis leurs deux PDF dans un job Windows distinct, sans Python accessible dans le `PATH`. Les journaux et rapports sont joints à l’exécution.
+
+Le job **Windows Sandbox vierge** vérifie aussi l’absence de Python installé et le maintien de la politique PowerShell `Restricted`. Il s’exécute sur `main` quand un runner Windows 11 x64 dédié avec bureau interactif et la commande `wsb` porte le label `testmyapp-windows-sandbox` et que la variable de dépôt `WINDOWS_SANDBOX_CI` vaut `true`. Le mode Sandbox se lance aussi localement depuis PowerShell 7 avec un répertoire de résultats neuf.
+
+```powershell
+./tests/run_windows_portable_sandbox.ps1 -Executable ./dist/TestMyApp-v0.2.2-windows-x64.exe -OutputDirectory ./build/portable-sandbox
+```
 - **Périmètre restant** · L’intégration Electron, l’audit WCAG-EM complet et la localisation EN restent dans la feuille de route. Les mesures laboratoire et la simulation de profils complètent les tests utilisateurs et les contrôles d’accessibilité humains.
 
 Testez uniquement des cibles que vous possédez ou avez l’autorisation de tester. Utilisez des données fictives.

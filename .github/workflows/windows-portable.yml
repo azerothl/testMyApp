@@ -1,0 +1,96 @@
+name: Exécutable portable Windows
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Construire l’exécutable
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: ./packaging/windows/build.ps1
+      - uses: actions/upload-artifact@v7
+        with:
+          name: testmyapp-windows-portable
+          path: dist/TestMyApp-v*-windows-x64.exe
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  smoke:
+    name: Campagnes et PDF sans Python dans le PATH
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: testmyapp-windows-portable
+          path: portable
+      - name: Isoler les lanceurs Python de l’image hébergée
+        shell: pwsh
+        run: |
+          if ($env:RUNNER_ENVIRONMENT -ne 'github-hosted') { throw 'Expected a disposable GitHub-hosted machine.' }
+          $quarantine = New-Item -ItemType Directory -Path (Join-Path $env:RUNNER_TEMP 'python-launchers')
+          foreach ($systemDir in $env:windir, "$env:windir\System32") {
+            foreach ($name in 'py.exe', 'pyw.exe', 'python.exe', 'python3.exe') {
+              $launcher = Join-Path $systemDir $name
+              if (Test-Path -LiteralPath $launcher -PathType Leaf) {
+                Move-Item -LiteralPath $launcher -Destination (Join-Path $quarantine.FullName "$(Split-Path $systemDir -Leaf)-$name")
+              }
+            }
+          }
+      - name: Tester le binaire sur une nouvelle machine Windows
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -LiteralPath portable -File -Filter '*.exe'
+          ./tests/run_windows_portable.ps1 -Executable $exe.FullName -OutputDirectory portable-results
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: testmyapp-windows-portable-results
+          path: portable-results/
+          retention-days: 7
+
+  sandbox:
+    name: Campagnes et PDF sur Windows Sandbox vierge
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.WINDOWS_SANDBOX_CI == 'true'
+    needs: build
+    runs-on: [self-hosted, Windows, X64, testmyapp-windows-sandbox]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: testmyapp-windows-portable
+          path: portable
+      - name: Tester le binaire dans Windows Sandbox
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -LiteralPath portable -File -Filter '*.exe'
+          $results = Join-Path $env:RUNNER_TEMP "testmyapp-portable-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          "PORTABLE_RESULTS=$results" >> $env:GITHUB_ENV
+          ./tests/run_windows_portable_sandbox.ps1 -Executable $exe.FullName -OutputDirectory $results
+      - uses: actions/upload-artifact@v7
+        if: always() && env.PORTABLE_RESULTS != ''
+        with:
+          name: testmyapp-windows-sandbox-results
+          path: ${{ env.PORTABLE_RESULTS }}
+          retention-days: 7
