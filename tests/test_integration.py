@@ -1,4 +1,4 @@
-"""Recettes locales facultatives avec Chromium et un bureau Windows interactif."""
+"""Recettes locales facultatives avec Playwright et un bureau Windows interactif."""
 import asyncio
 import json
 import os
@@ -19,6 +19,7 @@ from testmyapp.core.engine import CampaignEngine
 from testmyapp.personas.library import builtin_personas
 
 ASSETS = Path(__file__).resolve().parents[1] / "testmyapp" / "assets"
+UI_BROWSER = os.environ.get("TESTMYAPP_UI_BROWSER", "chromium")
 
 
 @contextmanager
@@ -58,7 +59,7 @@ def run_fixture(name, root, *, url=None, browser=None):
     return engine, result
 
 
-@unittest.skipUnless(os.environ.get("TESTMYAPP_BROWSER") == "1", "recette Chromium optionnelle")
+@unittest.skipUnless(os.environ.get("TESTMYAPP_BROWSER") == "1", "recette web optionnelle")
 class WebIntegration(unittest.TestCase):
     def test_workspace_keeps_reports_by_project_and_resumes_an_interrupted_campaign(self):
         from playwright.sync_api import expect, sync_playwright
@@ -82,7 +83,7 @@ class WebIntegration(unittest.TestCase):
             projects.add(first, "Premier projet")
 
             with serve(create_workspace(Projects(registry))) as url, sync_playwright() as playwright:
-                browser = playwright.chromium.launch()
+                browser = getattr(playwright, UI_BROWSER).launch()
                 page = browser.new_page()
                 page.set_default_timeout(8000)
                 page.goto(url)
@@ -144,6 +145,7 @@ class WebIntegration(unittest.TestCase):
                 expect(page.get_by_role("link", name="Lire le rapport")).to_have_count(2)
                 browser.close()
 
+    @unittest.skipUnless(UI_BROWSER == "chromium", "export PDF avec Chromium")
     def test_pdf_export_includes_evidence_from_an_existing_run(self):
         from testmyapp.cli import main
 
@@ -241,7 +243,7 @@ class WebIntegration(unittest.TestCase):
             engine = CampaignEngine(campaign, list(personas.values()), [scenario], target, Path(directory))
             host = GuiHost(engine)
             with serve(create_app(host)) as url, sync_playwright() as playwright:
-                browser = playwright.chromium.launch()
+                browser = getattr(playwright, UI_BROWSER).launch()
                 try:
                     page = browser.new_page(reduced_motion="reduce")
                     errors = []
@@ -276,6 +278,7 @@ class WebIntegration(unittest.TestCase):
                 finally:
                     browser.close()
 
+    @unittest.skipUnless(UI_BROWSER == "chromium", "mesure de référence du rendu dans Chromium")
     def test_floor_renders_24_actors_and_propagates_emotions(self):
         from playwright.sync_api import sync_playwright
 
