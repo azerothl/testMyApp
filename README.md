@@ -150,6 +150,8 @@ Le job **Windows Sandbox vierge** vérifie aussi l’absence de Python installé
 
 Quand le runner est lancé à la demande sur un poste Windows, le job attend en file que le poste soit allumé et que la session soit déverrouillée. Les deux PDF sont disponibles dans l’artefact `testmyapp-windows-sandbox-results` de l’exécution GitHub Actions.
 
+Sur le poste qui héberge ce runner, la tâche planifiée **TestMyApp GitHub Actions Sandbox** vérifie la file toutes les minutes. Son lanceur local `Start-Dispatcher.exe` démarre PowerShell sans ouvrir de terminal. La fenêtre de Windows Sandbox peut s’ouvrir pendant les tests. Le journal du lanceur se trouve dans `%LOCALAPPDATA%\TestMyApp\ActionsSandbox\dispatcher.log`.
+
 ```powershell
 ./tests/run_windows_portable_sandbox.ps1 -Executable ./dist/TestMyApp-v0.2.2-windows-x64.exe -OutputDirectory ./build/portable-sandbox
 ```
